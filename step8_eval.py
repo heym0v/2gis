@@ -1,4 +1,4 @@
-# Шаг 8. Оцениваем качество модели на test: precision, recall и F1 для каждой метки.
+# оцениваем качество модели на test: precision, recall и F1 для каждой метки.
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_score, recall_score, f1_score
@@ -23,7 +23,7 @@ result = pd.DataFrame(rows).sort_values("F1", ascending=False)
 print(result.round(2).to_string(index=False))
 print("\nmacro-F1 (среднее F1 по 19 меткам):", round(result["F1"].mean(), 3))
 
-# График: F1 для каждой метки
+# график: F1 для каждой метки
 plt.figure(figsize=(10, 6))
 plt.barh(result["Метка"], result["F1"])
 plt.gca().invert_yaxis()  # лучшая метка сверху
