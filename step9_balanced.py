@@ -1,4 +1,4 @@
-# Шаг 9. Борьба с дисбалансом: class_weight="balanced" и сравнение с моделью из шага 7.
+# борьба с дисбалансом: class_weight="balanced" и сравнение с моделью из шага 7.
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -39,7 +39,7 @@ print(result.round(2).to_string(index=False))
 print("\nmacro-F1 было:", round(result["F1 было"].mean(), 3))
 print("macro-F1 стало:", round(result["F1 стало"].mean(), 3))
 
-# График: F1 обычной и сбалансированной модели рядом
+# график: F1 обычной и сбалансированной модели рядом
 y = range(len(result))
 plt.figure(figsize=(10, 7))
 plt.barh([i - 0.2 for i in y], result["F1 было"], height=0.4, label="обычная")
