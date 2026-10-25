@@ -1,31 +1,31 @@
-# Шаг 3. Считаем простую статистику и рисуем два графика.
+# cчитаем простую статистику и рисуем два графика.
 import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.read_csv("data/reviews.csv")
 
-# Первые 3 колонки - branch_id, text, rating. Остальные 19 - метки.
+# первые 3 колонки - branch_id, text, rating. Остальные 19 - метки.
 labels = df.columns[3:]
 print("Всего отзывов:", len(df))
 
-# 1. Сколько отзывов у каждой метки и какой это процент
+# 1. сколько отзывов у каждой метки и какой это процент
 counts = df[labels].sum().sort_values(ascending=False)
 percent = (counts / len(df) * 100).round(1)
 print("\nОтзывов на метку:")
 for label in counts.index:
     print(f"{label}: {counts[label]} ({percent[label]}%)")
 
-# 2. Сколько меток у одного отзыва
+# 2. сколько меток у одного отзыва
 labels_per_review = df[labels].sum(axis=1)
 print("\nСколько меток у отзыва -> сколько таких отзывов:")
 print(labels_per_review.value_counts().sort_index())
 
-# 3. Длина текстов (в символах)
+# 3. длина текстов (в символах)
 length = df["text"].str.len()
 print("\nДлина текста: мин", length.min(), "| макс", length.max(),
       "| средняя", round(length.mean()), "| медиана", length.median())
 
-# График 1: столбики по меткам
+# график 1: столбики по меткам
 plt.figure(figsize=(10, 6))
 plt.barh(counts.index, counts.values)
 plt.gca().invert_yaxis()  # самая частая метка сверху
@@ -34,7 +34,7 @@ plt.title("Сколько отзывов у каждой метки")
 plt.tight_layout()
 plt.savefig("images/labels_count.png")
 
-# График 2: гистограмма длины текстов (до 1000 символов, иначе не видно)
+# график 2: гистограмма длины текстов (до 1000 символов, иначе не видно)
 plt.figure(figsize=(10, 5))
 plt.hist(length[length <= 1000], bins=50)
 plt.xlabel("Длина отзыва, символов")
