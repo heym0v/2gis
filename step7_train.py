@@ -1,4 +1,4 @@
-# Шаг 7. Обучаем логистическую регрессию: одна модель "да/нет" на каждую из 19 меток.
+# обучаем логистическую регрессию: одна модель "да/нет" на каждую из 19 меток.
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -13,7 +13,7 @@ X_train = vectorizer.fit_transform(train["text"])
 X_test = vectorizer.transform(test["text"])
 words = vectorizer.get_feature_names_out()
 
-# Сюда складываем предсказания 0/1 для test
+# сюда складываем предсказания 0/1 для test
 predictions = pd.DataFrame()
 predictions["text"] = test["text"]
 
