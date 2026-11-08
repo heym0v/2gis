@@ -26,3 +26,33 @@ print("\nТоп-10 слов этого отзыва по TF-IDF:")
 for i in row.argsort()[::-1][:10]:
     if row[i] > 0:
         print(f"{words[i]}: {row[i]:.3f}")
+
+# ---- графики слов с наибольшим TF-IDF ----
+import matplotlib.pyplot as plt
+
+# средний TF-IDF каждого слова по всем отзывам train
+mean_all = X_train.mean(axis=0).A1  # .A1 превращает результат в обычный массив
+top = mean_all.argsort()[::-1][:20]  # 20 слов с самым большим средним весом
+
+plt.figure(figsize=(8, 7))
+plt.barh([words[i] for i in top], mean_all[top])
+plt.gca().invert_yaxis()  # самое весомое слово сверху
+plt.xlabel("Средний TF-IDF")
+plt.title("20 слов с наибольшим средним TF-IDF (все отзывы train)")
+plt.tight_layout()
+plt.savefig("images/top_words_all.png")
+
+# то же самое для 4 меток: средний TF-IDF только по отзывам с этой меткой
+four = ["Просто поесть", "Свидание", "Поработать", "Покормить детей"]
+fig, axes = plt.subplots(2, 2, figsize=(12, 9))
+for ax, label in zip(axes.flatten(), four):
+    rows = (train[label] == 1).values  # отзывы, у которых есть эта метка
+    mean_label = X_train[rows].mean(axis=0).A1
+    top = mean_label.argsort()[::-1][:10]
+    ax.barh([words[i] for i in top], mean_label[top])
+    ax.invert_yaxis()
+    ax.set_title(f"{label} ({rows.sum()} отзывов)")
+    ax.set_xlabel("Средний TF-IDF")
+plt.tight_layout()
+plt.savefig("images/top_words_labels.png")
+print("\nГрафики сохранены: images/top_words_all.png, images/top_words_labels.png")
