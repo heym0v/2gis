@@ -5,7 +5,8 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 
 test = pd.read_csv("data/test.csv")
 predictions = pd.read_csv("data/predictions.csv")
-labels = test.columns[3:]
+# колонки 3..21 - 19 меток (последняя колонка text_clean - это не метка)
+labels = test.columns[3:-1]
 
 rows = []
 for label in labels:
