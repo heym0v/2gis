@@ -5,12 +5,13 @@ from sklearn.linear_model import LogisticRegression
 
 train = pd.read_csv("data/train.csv")
 test = pd.read_csv("data/test.csv")
-labels = train.columns[3:]
+# колонки 3..21 - 19 меток (последняя колонка text_clean - это не метка)
+labels = train.columns[3:-1]
 
 # TF-IDF так же, как в шаге 6
 vectorizer = TfidfVectorizer(max_features=10000, lowercase=True)
-X_train = vectorizer.fit_transform(train["text"])
-X_test = vectorizer.transform(test["text"])
+X_train = vectorizer.fit_transform(train["text_clean"])
+X_test = vectorizer.transform(test["text_clean"])
 words = vectorizer.get_feature_names_out()
 
 # сюда складываем предсказания 0/1 для test

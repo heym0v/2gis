@@ -8,12 +8,13 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 train = pd.read_csv("data/train.csv")
 test = pd.read_csv("data/test.csv")
 old = pd.read_csv("data/predictions.csv")  # предсказания обычной модели (шаг 7)
-labels = train.columns[3:]
+# колонки 3..21 - 19 меток (последняя колонка text_clean - это не метка)
+labels = train.columns[3:-1]
 
 # TF-IDF так же, как в шагах 6 и 7
 vectorizer = TfidfVectorizer(max_features=10000, lowercase=True)
-X_train = vectorizer.fit_transform(train["text"])
-X_test = vectorizer.transform(test["text"])
+X_train = vectorizer.fit_transform(train["text_clean"])
+X_test = vectorizer.transform(test["text_clean"])
 
 rows = []
 for label in labels:
