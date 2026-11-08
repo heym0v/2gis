@@ -8,6 +8,18 @@ with open("data/task_2_vibes.json", encoding="utf-8") as f:
 # data - это список. Один элемент списка = одно заведение (кафе, ресторан)
 print("Всего заведений:", len(data))
 
+# Проверяем, что заведения не повторяются:
+# set() оставляет только разные значения branch_id
+ids = [place["branch_id"] for place in data]
+print("Разных branch_id:", len(set(ids)))
+
+# Считаем заведения, у которых есть хотя бы один отзыв с меткой
+with_reviews = 0
+for place in data:
+    if len(place["nlp"]["aspect"]) > 0:
+        with_reviews += 1
+print("Заведений с отзывами:", with_reviews)
+
 # Смотрим на первое заведение
 first = data[0]
 print("Поля заведения:", list(first.keys()))
