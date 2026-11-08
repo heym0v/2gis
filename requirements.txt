@@ -3,5 +3,3 @@ matplotlib
 scikit-learn
 pymorphy3
 gensim
-torch
-transformers
