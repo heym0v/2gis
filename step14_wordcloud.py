@@ -41,7 +41,7 @@ cloud.generate_from_frequencies(weights)
 plt.figure(figsize=(10, 6.7))
 plt.imshow(cloud, interpolation="bilinear")
 plt.axis("off")
-plt.title(f"Слова, на которые опирается модель: «{label}»")
+plt.title(f"Слова, на которые опирается модель: «{label.replace('Фоткаться', 'Фотографироваться')}»")
 plt.tight_layout()
 out = "images/wordcloud.png"
 plt.savefig(out, dpi=150)
