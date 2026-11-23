@@ -66,10 +66,12 @@ print("macro-F1 + биграммы + свои пороги:", round(result["F1 +
 # график: F1 по меткам для трёх вариантов
 y = np.arange(len(result))
 plt.figure(figsize=(10, 8))
-plt.barh(y - 0.27, result["F1 шаг 9"], height=0.27, label="шаг 9: слова, порог 0.5")
+plt.barh(y - 0.27, result["F1 шаг 9"], height=0.27, label="слова + балансировка")
 plt.barh(y, result["F1 +биграммы"], height=0.27, label="+ биграммы")
 plt.barh(y + 0.27, result["F1 +биграммы +порог"], height=0.27, label="+ биграммы + свой порог")
-plt.yticks(y, result["Метка"])
+# в данных метка называется "Фоткаться", на графике пишем полностью
+names = result["Метка"].replace({"Фоткаться": "Фотографироваться"})
+plt.yticks(y, names)
 plt.gca().invert_yaxis()
 plt.xlabel("F1 на test")
 plt.title("F1 по меткам: биграммы и подбор порога")
